@@ -7,19 +7,17 @@
     </url>
 
     <url>
-        <loc>https://dennischa.github.io/2019/10/17/effective-c-ch1/</loc>
+        <loc>https://dennischa.github.io/categories/C/</loc>
         <lastmod>2019-10-17T07:46:43.228Z</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
+        <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://dennischa.github.io/2017/03/18/hexo-theme-beantech/</loc>
-        <lastmod>2019-10-11T16:08:40.715Z</lastmod>
+        <loc>https://dennischa.github.io/categories/C/Effective-C/</loc>
+        <lastmod>2019-10-17T07:46:43.228Z</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
+        <priority>0.2</priority>
     </url>
 
 </urlset>
