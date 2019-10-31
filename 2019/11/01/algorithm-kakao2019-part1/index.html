@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Dennis TechBlog | 차경준 기술 블로그
+          2019 KAKAO BLIND RECRUTMENT 코딩 테스트 풀이 part1 - Dennis TechBlog | 차경준 기술 블로그
         
     </title>
 
-    <link rel="canonical" href="https://dennischa.github.io/archives/">
+    <link rel="canonical" href="https://dennischa.github.io/2019/11/01/algorithm-kakao2019-part1/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,8 +69,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/undefined')
-            /*page*/
+            background-image: url('Demo.png')
+            /*post*/
         
     }
     
@@ -83,10 +83,18 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="site-heading">
-                        <h1>차경준 기술 블로그</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">Dennis TechBlog</span>
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#C++" title="C++">C++</a>
+                            
+                        </div>
+                        <h1>2019 KAKAO BLIND RECRUTMENT 코딩 테스트 풀이 part1</h1>
+                        <h2 class="subheading">Effecive C++ 정리</h2>
+                        <span class="meta">
+                            Posted by Kyung Jun Cha on
+                            2019-11-01
+                        </span>
                     </div>
                 
 
@@ -189,272 +197,198 @@
 
 
     <!-- Main Content -->
-    <!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
+    <!-- Modify by Yu-Hsuan Yen -->
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- 归档列表 -->
-            
-            
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-             <!-- 归档列表 -->
+                <h1><span id="2019-kakao-blind-recrutment-코딩-테스트-풀이">2019 KAKAO BLIND RECRUTMENT 코딩 테스트 풀이</span></h1>
+<hr>
+<h3><span id="1-오픈채팅방">1. 오픈채팅방</span></h3>
+<ul>
+<li><a href="https://programmers.co.kr/learn/courses/30/lessons/42888" target="_blank" rel="noopener">문제 링크</a></li>
+<li><a href="https://github.com/dennischa/KAKAO_BLIND_RECRUITMENT_2019_SOLTUTION/blob/master/Open_Chatt_Room.cpp" target="_blank" rel="noopener">솔루션</a></li>
+</ul>
+<h4><span id="문제-풀이">문제 풀이</span></h4>
+<ul>
+<li>자료구조 : 배열, 맵</li>
+<li>시간 복잡도 예상 : O(n)</li>
+</ul>
+<ol>
+<li>배열을 사용하여 출력될 메세지를 기록해 둡니다.</li>
+<li>유저 아이디를 키로 닉네임을 값으로 저장하는 맵을 사용하여 관리합니다.</li>
+<li>배열을 순회하며 메세지를 생성할 때 맵에 저장된 아이디별 최종 닉네임을 이용합니다.</li>
+</ol>
+<ul>
+<li><strong>주요 부분</strong> : 유저 아이디 맵으로 관리</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name_map[id] = <span class="built_in">string</span>(name);</span><br></pre></td></tr></table></figure>
+<h3><span id="2-실패율">2. 실패율</span></h3>
+<ul>
+<li><a href="https://programmers.co.kr/learn/courses/30/lessons/42889" target="_blank" rel="noopener">문제 링크</a></li>
+<li><a href="https://github.com/dennischa/KAKAO_BLIND_RECRUITMENT_2019_SOLTUTION/blob/master/Failure_Ratio.cpp" target="_blank" rel="noopener">솔루션</a></li>
+</ul>
+<h4><span id="문제-풀이">문제 풀이</span></h4>
+<ul>
+<li>자료구조 : 배열, 맵</li>
+<li>시간 복잡도 예상 : O(n^2)</li>
+</ul>
+<ol>
+<li>stages 백터 정보를 바탕으로 스테이지 별 실패율을 계산하다.</li>
+<li>조건에 맞게 정렬한다.</li>
+</ol>
+<ul>
+<li><strong>주요 부분</strong> : 정렬 비교 함수</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> Stage&amp; comp)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">float</span> f1 = <span class="keyword">this</span>-&gt;get_failure_ratio();</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">float</span> f2 = comp.get_failure_ratio();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (f1 == f2)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>-&gt;num &lt; comp.num;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> f1 &gt; f2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="3후보키">3.후보키</span></h3>
+<ul>
+<li><a href="https://programmers.co.kr/learn/courses/30/lessons/42890" target="_blank" rel="noopener">문제 링크</a></li>
+<li><a href="https://github.com/dennischa/KAKAO_BLIND_RECRUITMENT_2019_SOLTUTION/blob/master/Candidate_Key.cpp" target="_blank" rel="noopener">솔루션</a></li>
+</ul>
+<h4><span id="문제-풀이">문제 풀이</span></h4>
+<ul>
+<li>자료구조 : 비트셋, 맵</li>
+<li>시간 복잡도 예상 : O(2^n)</li>
+</ul>
+<ol>
+<li>bitset을 통해 모든 키 조합을 표현합니다.</li>
+<li><code>비트 연산 &amp;</code>을 통해 조합의 최소성을 확보합니다.</li>
+<li>맵을 통해 투플의 종류 수를 구해 유일성을 확보합니다.</li>
+</ol>
+<ul>
+<li><strong>주요 부분</strong>  : 최소성 확보</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bitset</span>&lt;8&gt; <span class="built_in">set</span> = i;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; keys.size(); i++)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> ((keys[i] &amp; <span class="built_in">set</span>) == keys[i]) <span class="comment">// 앞서 구한 키조합의 부분 집합인지 확인한다.</span></span><br><span class="line">	&#123;</span><br><span class="line">		is_minimal = <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-            
-            <div class="one-tag-list">
-                <span class="fa fa-calendar-times-o listing-seperator" id="2019">
-                    <span class="tag-text">2019</span>
-                </span>
-                <ul>
                 
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li >
-                    11-01
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/2019/11/01/algorithm-kakao2019-part1/" style="color: #0085a1">
-                        <span>
-                            2019 KAKAO BLIND RECRUTMENT 코딩 테스트 풀이 part1
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li >
-                    10-31
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/2019/10/31/effective-cpp-ch2-part2/" style="color: #0085a1">
-                        <span>
-                            Chapter 2. 생성자, 소멸자 및 대입 연산자 part2 항목 10 - 12
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li >
-                    10-24
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/2019/10/24/effective-cpp-ch2-part1/" style="color: #0085a1">
-                        <span>
-                            Chapter 2. 생성자, 소멸자 및 대입 연산자 part1 항목 5 - 9
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li >
-                    10-17
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/2019/10/17/effective-c-ch1/" style="color: #0085a1">
-                        <span>
-                            Chapter 1. C++에 왔으면 C++의 법을 따릅니다. 항목 1 - 4
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/10/31/effective-cpp-ch2-part2/" data-toggle="tooltip" data-placement="top" title="Chapter 2. 생성자, 소멸자 및 대입 연산자 part2 항목 10 - 12">Next Post &rarr;</a>
+                        </li>
+                    
                 </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
             </div>
             
-            <div class="one-tag-list">
-                <span class="fa fa-calendar-times-o listing-seperator" id="2017">
-                    <span class="tag-text">2017</span>
-                </span>
-                <ul>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li >
-                    03-18
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/2017/03/18/hexo-theme-beantech/" style="color: #0085a1">
-                        <span>
-                            [Hexo] Theme BeanTech
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
-                </ul>
-            </div>
             
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
 
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#C++" title="C++">C++</a>
+                        
+                    </div>
+                </section>
+                
 
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+            </div>
         </div>
     </div>
-</div>
+</article>
 
-                <!-- 如果开启评论功能 -->
-                
-            </div>
 
-          <!-- Sidebar Container -->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-        <!-- Featured Tags -->
 
-<section>
-    <!-- no hr -->
-    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-    <div class="tags">
-        
-            
-            <a href="/tags/#C++" title="C++" rel="4">C++</a>
-            
-        
-    </div>
-</section>
 
-        <hr>
-    
-        <!-- Short About -->
-<section class="visible-md visible-lg">
-    <h5><a href="/about/">ABOUT ME</a></h5>
-    <div class="short-about">
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "cagyeongjun-gisul-beulrogeu";
+    var disqus_identifier = "https://dennischa.github.io/2019/11/01/algorithm-kakao2019-part1/";
+    var disqus_url = "https://dennischa.github.io/2019/11/01/algorithm-kakao2019-part1/";
 
-        
-            <img id = "avatar_pic" src="/img/avatar.PNG" />
-        
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
 
-        
-            <p>안녕하세요.</p>
-        
 
-        <!-- SNS Link -->
-        <ul class="list-inline">
-            
-            
-            
 
-            
 
-            
-                <li>
-                    <a target="_blank" href="https://www.facebook.com/kyungjune.cha">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: '▶'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
-            
-                <li>
-                    <a target="_blank"  href="https://github.com/dennischa">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-            
-            
-            
-                <li>
-                    <a target="_blank"  href="https://www.linkedin.com/in/kyungjun-cha-833419133">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-        </ul>
-    </div>
-</section>
-        <hr>
-    
-        
-  <h5>RECENT POSTS</h3>
-  <div class="widget">
-    <ul>
-      
-        <li>
-          <a href="/2019/11/01/algorithm-kakao2019-part1/">2019 KAKAO BLIND RECRUTMENT 코딩 테스트 풀이 part1</a>
-        </li>
-      
-        <li>
-          <a href="/2019/10/31/effective-cpp-ch2-part2/">Chapter 2. 생성자, 소멸자 및 대입 연산자 part2 항목 10 - 12</a>
-        </li>
-      
-        <li>
-          <a href="/2019/10/24/effective-cpp-ch2-part1/">Chapter 2. 생성자, 소멸자 및 대입 연산자 part1 항목 5 - 9</a>
-        </li>
-      
-        <li>
-          <a href="/2019/10/17/effective-c-ch1/">Chapter 1. C++에 왔으면 C++의 법을 따릅니다. 항목 1 - 4</a>
-        </li>
-      
-        <li>
-          <a href="/2017/03/18/hexo-theme-beantech/">[Hexo] Theme BeanTech</a>
-        </li>
-      
-    </ul>
-  </div>
-
-        <hr>
-    
-        <!-- Categories -->
-
-    <h5>categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/2019-KAKAO/">2019 KAKAO</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/C/Effective-C/">Effective C++</a><span class="category-list-count">3</span></li></ul></li></ul>
-    </div>
-
-        <hr>
-    
-        
-    <h5>ARCHIVES</h5>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li></ul>
-    </div>
-
-        <hr>
-    
-</div>
-
-        
-    </div>
-</div>
 
 
     <!-- Footer -->
