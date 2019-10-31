@@ -14,7 +14,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Chapter 1. C++에 왔으면 C++의 법을 따릅니다. - Dennis TechBlog | 차경준 기술 블로그
+          Chapter 1. C++에 왔으면 C++의 법을 따릅니다. 항목 1 - 4 - Dennis TechBlog | 차경준 기술 블로그
         
     </title>
 
@@ -89,7 +89,7 @@
                               <a class="tag" href="/tags/#C++" title="C++">C++</a>
                             
                         </div>
-                        <h1>Chapter 1. C++에 왔으면 C++의 법을 따릅니다.</h1>
+                        <h1>Chapter 1. C++에 왔으면 C++의 법을 따릅니다. 항목 1 - 4</h1>
                         <h2 class="subheading">Effecive C++ 정리</h2>
                         <span class="meta">
                             Posted by Kyung Jun Cha on
@@ -140,7 +140,7 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -154,7 +154,7 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -212,22 +212,14 @@
 
                 <h1><span id="chapter-1-c-에-왔으면-c의-법을-따릅니다">Chapter 1. C++ 에 왔으면 C++의 법을 따릅니다.</span></h1>
 <hr>
-<h2><span id="1-c를-언어들의-연합체로-바라보는-안목은-필수">1. C++를  언어들의 연합체로 바라보는 안목은 필수</span></h2>
+<h2><span id="항목-1-c를-언어들의-연합체로-바라보는-안목은-필수">항목 1. C++를  언어들의 연합체로 바라보는 안목은 필수</span></h2>
 <ol>
-<li>
-<p>절차적(procedual) : C언어가 기본</p>
-</li>
-<li>
-<p>객체 지향(object oriented) : 클래스, 캡슐화, 상속, 다형성, 가상함수 등 개념 사용</p>
-</li>
-<li>
-<p>일반화(generic), 템플릿 메타프로그래밍</p>
-</li>
-<li>
-<p>STL, 템플릿 라이브러리</p>
-</li>
+<li>절차적(procedual) : C언어가 기본</li>
+<li>객체 지향(object oriented) : 클래스, 캡슐화, 상속, 다형성, 가상함수 등 개념 사용</li>
+<li>일반화(generic), 템플릿 메타프로그래밍</li>
+<li>STL, 템플릿 라이브러리</li>
 </ol>
-<h2><span id="2-define을-쓰려거든-const-enum-inline을-떠올리자">2. #define을 쓰려거든 const, enum, inline을 떠올리자</span></h2>
+<h2><span id="항목-2-define을-쓰려거든-const-enum-inline을-떠올리자">항목 2. #define을 쓰려거든 const, enum, inline을 떠올리자</span></h2>
 <blockquote>
 <p>가급적 선행 처리자보다 컴파일러를 더 가까이 하자</p>
 </blockquote>
@@ -247,7 +239,7 @@
 <p>인라인 함수에 대한 템플릿을 준비하자</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">callWithMax</span><span class="params">(<span class="keyword">const</span> T&amp; a, <span class="keyword">const</span> T&amp; b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    f(a &gt; b ? a : b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="3-낌새만-보이면-const를-들이대-보자">3. 낌새만 보이면 const를 들이대 보자!</span></h2>
+<h2><span id="항목-3-낌새만-보이면-const를-들이대-보자">항목 3. 낌새만 보이면 const를 들이대 보자!</span></h2>
 <h3><span id="정의">정의</span></h3>
 <h4><span id="상수-멤버-함수-해당-멤버-함수가-상수-객체에-대해-호출된-함수">상수 멤버 함수   : 해당 멤버 함수가 상수 객체에 대해 호출된 함수</span></h4>
 <pre><code>1.  클래스의 인터페이스를 이해하기 좋게 한다.
@@ -265,11 +257,11 @@
 <ul>
 <li>기능적으로 서로 똑같게 구현되어 있을 경우 비상수 버전이 상수 버전을 호출하도록</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TextBlock</span> &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>&amp; <span class="keyword">operator</span>[](<span class="built_in">std</span>::<span class="keyword">size_t</span> position) <span class="keyword">const</span></span><br><span class="line">    &#123;</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">return</span> text[position];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">char</span>&amp; <span class="keyword">operator</span>[](<span class="built_in">std</span>::<span class="keyword">size_t</span> position)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">const_cast</span>&lt;<span class="keyword">char</span>&amp;&gt;(                                      <span class="comment">//const를 떄어냅니다.</span></span><br><span class="line">            static_const&lt;<span class="keyword">const</span> TextBlock&amp;&gt;(*<span class="keyword">this</span>)[position]);_      <span class="comment">//*this의 타입에 const를 붙여 op[]의 상수 버전을 호출합니다.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TextBlock</span> &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>&amp; <span class="keyword">operator</span>[](<span class="built_in">std</span>::<span class="keyword">size_t</span> position) <span class="keyword">const</span></span><br><span class="line">    &#123;</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">return</span> text[position];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>&amp; <span class="keyword">operator</span>[](<span class="built_in">std</span>::<span class="keyword">size_t</span> position)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">const_cast</span>&lt;<span class="keyword">char</span>&amp;&gt;(                                      <span class="comment">//const를 떄어냅니다.</span></span><br><span class="line">            static_const&lt;<span class="keyword">const</span> TextBlock&amp;&gt;(*<span class="keyword">this</span>)[position]);_      <span class="comment">//*this의 타입에 const를 붙여 op[]의 상수 버전을 호출합니다.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>앞의 방법을 뒤집어(상수 버전이 비상수 버전을 호출 하는 것) 하지 않는 이유는 상수 함수는 객체의 상태를 바꾸지 않겠다고 컴파일러와 약속한 함수이기 떄문에 배신하는 셈이 됩니다.</li>
 </ul>
-<h2><span id="4-객체를-사용하기-전에-반드시-그-객체를-초기화-하자">4. 객체를 사용하기 전에 반드시 그 객체를 초기화 하자</span></h2>
+<h2><span id="항목-4-객체를-사용하기-전에-반드시-그-객체를-초기화-하자">항목 4. 객체를 사용하기 전에 반드시 그 객체를 초기화 하자</span></h2>
 <h4><span id="기본제공-타입의-객체는-직접-손으로-초기화합니다">기본제공 타입의 객체는 직접 손으로 초기화합니다.</span></h4>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> * text = <span class="string">"A C-style string"</span>;</span><br></pre></td></tr></table></figure>
 <h4><span id="생성자에서-멤버-초기화-리스트를-사용하여-초기화-하고-리스트에-데이터-멤버를-나열할-떄는-클래스에-각-데이터-멤버가-선언된-순서와-똑같이-나열하자-리스트-순서가-아닌-선언-순서로-초기화-되기-떄문에">생성자에서 멤버 초기화 리스트를 사용하여 초기화 하고 리스트에 데이터 멤버를 나열할 떄는 클래스에 각 데이터 멤버가 선언된 순서와 똑같이 나열하자( <em>리스트 순서가 아닌 선언 순서로 초기화 되기 떄문에</em>)</span></h4>
@@ -284,7 +276,7 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2019/10/24/effective-cpp-ch2-part1/" data-toggle="tooltip" data-placement="top" title="Chapter 2. C++에 왔으면 C++의 법을 따릅니다. 항목 5 - 9">&larr; Previous Post</a>
+                            <a href="/2019/10/24/effective-cpp-ch2-part1/" data-toggle="tooltip" data-placement="top" title="Chapter 2. 생성자, 소멸자 및 대입 연산자 part1 항목 5 - 9">&larr; Previous Post</a>
                         </li>
                     
                     
