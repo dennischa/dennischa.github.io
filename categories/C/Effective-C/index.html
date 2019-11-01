@@ -132,14 +132,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -221,6 +221,21 @@
                     <span class="tag-text">2019</span>
                 </span>
                 <ul>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    11-01
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2019/11/01/algorithm-sorting/" style="color: #0085a1">
+                        <span>
+                            알고리즘 - 정렬 정리
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
                 
                   <!-- <li class="listing-item">
                   <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
@@ -336,7 +351,7 @@
     <div class="tags">
         
             
-            <a href="/tags/#C++" title="C++" rel="4">C++</a>
+            <a href="/tags/#C++" title="C++" rel="5">C++</a>
             
         
     </div>
@@ -409,6 +424,10 @@
     <ul>
       
         <li>
+          <a href="/2019/11/01/algorithm-sorting/">알고리즘 - 정렬 정리</a>
+        </li>
+      
+        <li>
           <a href="/2019/11/01/algorithm-kakao2019-part1/">2019 KAKAO BLIND RECRUTMENT 코딩 테스트 풀이 part1</a>
         </li>
       
@@ -424,10 +443,6 @@
           <a href="/2019/10/17/effective-c-ch1/">Chapter 1. C++에 왔으면 C++의 법을 따릅니다. 항목 1 - 4</a>
         </li>
       
-        <li>
-          <a href="/2017/03/18/hexo-theme-beantech/">[Hexo] Theme BeanTech</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -437,7 +452,7 @@
 
     <h5>categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/2019-KAKAO/">2019 KAKAO</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/C/Effective-C/">Effective C++</a><span class="category-list-count">3</span></li></ul></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/2019-KAKAO/">2019 KAKAO</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/Note/">Note</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/C/Effective-C/">Effective C++</a><span class="category-list-count">3</span></li></ul></li></ul>
     </div>
 
         <hr>
@@ -445,7 +460,7 @@
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li></ul>
     </div>
 
         <hr>
@@ -588,22 +603,6 @@
 
 
 <!-- Google Analytics -->
-
-
-<script>
-    // dynamic User by Hux
-    var _gaId = 'UA-XXXXXXXX-X';
-    var _gaDomain = 'yoursite';
-
-    // Originial
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', _gaId, _gaDomain);
-    ga('send', 'pageview');
-</script>
 
 
 

@@ -90,7 +90,7 @@
                             
                         </div>
                         <h1>2019 KAKAO BLIND RECRUTMENT 코딩 테스트 풀이 part1</h1>
-                        <h2 class="subheading">Effecive C++ 정리</h2>
+                        <h2 class="subheading">알고리즘 문제 풀이</h2>
                         <span class="meta">
                             Posted by Kyung Jun Cha on
                             2019-11-01
@@ -140,14 +140,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -228,9 +228,9 @@
 <li>배열을 순회하며 메세지를 생성할 때 맵에 저장된 아이디별 최종 닉네임을 이용합니다.</li>
 </ol>
 <ul>
-<li><strong>주요 부분</strong> : 유저 아이디 맵으로 관리</li>
+<li><strong>주요 부분</strong> : 유저 아이디 맵으로 관리
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name_map[id] = <span class="built_in">string</span>(name);</span><br></pre></td></tr></table></figure></li>
 </ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name_map[id] = <span class="built_in">string</span>(name);</span><br></pre></td></tr></table></figure>
 <h3><span id="2-실패율">2. 실패율</span></h3>
 <ul>
 <li><a href="https://programmers.co.kr/learn/courses/30/lessons/42889" target="_blank" rel="noopener">문제 링크</a></li>
@@ -246,9 +246,9 @@
 <li>조건에 맞게 정렬한다.</li>
 </ol>
 <ul>
-<li><strong>주요 부분</strong> : 정렬 비교 함수</li>
+<li><strong>주요 부분</strong> : 정렬 비교 함수
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> Stage&amp; comp)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">float</span> f1 = <span class="keyword">this</span>-&gt;get_failure_ratio();</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">float</span> f2 = comp.get_failure_ratio();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (f1 == f2)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>-&gt;num &lt; comp.num;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> f1 &gt; f2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> Stage&amp; comp)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">float</span> f1 = <span class="keyword">this</span>-&gt;get_failure_ratio();</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">float</span> f2 = comp.get_failure_ratio();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (f1 == f2)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>-&gt;num &lt; comp.num;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> f1 &gt; f2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3><span id="3후보키">3.후보키</span></h3>
 <ul>
 <li><a href="https://programmers.co.kr/learn/courses/30/lessons/42890" target="_blank" rel="noopener">문제 링크</a></li>
@@ -265,15 +265,19 @@
 <li>맵을 통해 투플의 종류 수를 구해 유일성을 확보합니다.</li>
 </ol>
 <ul>
-<li><strong>주요 부분</strong>  : 최소성 확보</li>
+<li><strong>주요 부분</strong>  : 최소성 확보
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bitset</span>&lt;8&gt; <span class="built_in">set</span> = i;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; keys.size(); i++)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> ((keys[i] &amp; <span class="built_in">set</span>) == keys[i]) <span class="comment">// 앞서 구한 키조합의 부분 집합인지 확인한다.</span></span><br><span class="line">	&#123;</span><br><span class="line">		is_minimal = <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bitset</span>&lt;8&gt; <span class="built_in">set</span> = i;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; keys.size(); i++)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> ((keys[i] &amp; <span class="built_in">set</span>) == keys[i]) <span class="comment">// 앞서 구한 키조합의 부분 집합인지 확인한다.</span></span><br><span class="line">	&#123;</span><br><span class="line">		is_minimal = <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/11/01/algorithm-sorting/" data-toggle="tooltip" data-placement="top" title="알고리즘 - 정렬 정리">&larr; Previous Post</a>
+                        </li>
                     
                     
                         <li class="next">
@@ -522,22 +526,6 @@
 
 
 <!-- Google Analytics -->
-
-
-<script>
-    // dynamic User by Hux
-    var _gaId = 'UA-XXXXXXXX-X';
-    var _gaDomain = 'yoursite';
-
-    // Originial
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', _gaId, _gaDomain);
-    ga('send', 'pageview');
-</script>
 
 
 
