@@ -147,14 +147,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -330,7 +330,7 @@ ex) 동적 할당한 메모리, 파일 서술자, 뮤텍스 잠금, 그래픽 �
 <ol>
 <li>매개 변수를 넘겨주는 연산 <code>new Widget</code>, <code>priority()</code>, <code>tr1::shared_ptr 생성자</code> 3가지가 실행됩니다.</li>
 <li><code>tr1::shared_ptr 생성자</code>는 <code>new Widget</code>을 매개변수를 사용하기 때문에 순서가 뒤로 보장 되지만 다른 연산들과의 순서는 보장되지 못합니다.</li>
-<li><code>new Widget</code> :arrow_right: <code>priority()</code> :arrow_right:  <code>tr1::shared_ptr 생성자</code> 순서로 실행 되는 경우  <code>priority()</code> 호출 부분에서 예외가 발생하면 자원이 누출됩니다.</li>
+<li><code>new Widget</code> ➡️ <code>priority()</code> ➡️  <code>tr1::shared_ptr 생성자</code> 순서로 실행 되는 경우  <code>priority()</code> 호출 부분에서 예외가 발생하면 자원이 누출됩니다.</li>
 </ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::tr1::<span class="built_in">shared_ptr</span>&lt;Widget&gt; pw(<span class="keyword">new</span> Widget); <span class="comment">//독립적인 문장으로 실행</span></span><br><span class="line"></span><br><span class="line">processWidget(pw, priority());</span><br></pre></td></tr></table></figure>
 <ul>
