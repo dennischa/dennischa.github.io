@@ -7,36 +7,36 @@
     </url>
 
     <url>
-        <loc>https://dennischa.github.io/categories/C/</loc>
-        <lastmod>2019-10-31T13:49:44.204Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://dennischa.github.io/categories/C/Effective-C/</loc>
-        <lastmod>2019-10-31T13:49:44.204Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://dennischa.github.io/categories/Algorithm/2019-KAKAO/</loc>
-        <lastmod>2019-11-05T13:17:37.161Z</lastmod>
+        <loc>https://dennischa.github.io/categories/Algorithm/Note/</loc>
+        <lastmod>2019-11-06T15:00:13.417Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://dennischa.github.io/categories/Algorithm/</loc>
-        <lastmod>2019-11-05T13:27:17.641Z</lastmod>
+        <lastmod>2019-11-06T16:44:27.483Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://dennischa.github.io/categories/Algorithm/Note/</loc>
-        <lastmod>2019-11-05T13:27:17.641Z</lastmod>
+        <loc>https://dennischa.github.io/categories/Algorithm/2019-KAKAO/</loc>
+        <lastmod>2019-11-06T16:44:27.483Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://dennischa.github.io/categories/C/</loc>
+        <lastmod>2019-11-06T16:55:41.594Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://dennischa.github.io/categories/C/Effective-C/</loc>
+        <lastmod>2019-11-06T16:55:41.594Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

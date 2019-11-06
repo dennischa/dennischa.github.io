@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          2019 KAKAO BLIND RECRUTMENT 코딩 테스트 풀이 part1 - Dennis TechBlog | 차경준 기술 블로그
+          Chapter 3. 자원 관리 - Dennis TechBlog | 차경준 기술 블로그
         
     </title>
 
-    <link rel="canonical" href="https://dennischa.github.io/2019/11/01/algorithm-kakao2019-part1/">
+    <link rel="canonical" href="https://dennischa.github.io/2019/11/06/effective-cpp-ch3/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('Demo.png')
+            background-image: url('/img/header_img/Iron-Man-3.jpg')
             /*post*/
         
     }
@@ -89,11 +89,11 @@
                               <a class="tag" href="/tags/#C++" title="C++">C++</a>
                             
                         </div>
-                        <h1>2019 KAKAO BLIND RECRUTMENT 코딩 테스트 풀이 part1</h1>
-                        <h2 class="subheading">알고리즘 문제 풀이</h2>
+                        <h1>Chapter 3. 자원 관리</h1>
+                        <h2 class="subheading">Effecive C++ 정리</h2>
                         <span class="meta">
                             Posted by Kyung Jun Cha on
-                            2019-11-01
+                            2019-11-06
                         </span>
                     </div>
                 
@@ -210,64 +210,132 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1><span id="2019-kakao-blind-recrutment-코딩-테스트-풀이">2019 KAKAO BLIND RECRUTMENT 코딩 테스트 풀이</span></h1>
+                <h1><span id="chapter-3-자원-관리">Chapter 3. 자원 관리</span></h1>
 <hr>
-<h3><span id="1-오픈채팅방">1. 오픈채팅방</span></h3>
+<blockquote>
+<p>프로그래밍 분야에서 자원(resource)이란, 사용을 일단 마치고 난 후엔 시스템에 돌려주어야 하는 모든 것을 일컫습니다.<br>
+ex) 동적 할당한 메모리, 파일 서술자, 뮤텍스 잠금, 그래픽 유저 인터페이스, 폰트, 브러시</p>
+</blockquote>
+<h2><span id="항목-13-자원-관리에는-객체가-그만">항목 13. 자원 관리에는 객체가 그만</span></h2>
+<hr>
 <ul>
-<li><a href="https://programmers.co.kr/learn/courses/30/lessons/42888" target="_blank" rel="noopener">문제 링크</a></li>
-<li><a href="https://github.com/dennischa/KAKAO_BLIND_RECRUITMENT_2019_SOLTUTION/blob/master/Open_Chatt_Room.cpp" target="_blank" rel="noopener">솔루션</a></li>
+<li>예로 팩토리 함수를 통해 얻어낸 객체를 사용할 때 삭제를 책임져야 하는 쪽은 함수의 호출인데 이 과정에서 해제가 원할히 일어나지 못하는 경우가 있을 수 있습니다.</li>
 </ul>
-<h4><span id="문제-풀이">문제 풀이</span></h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Investment* pInv = createInvestment(); <span class="comment">//팩토리 함수 호출</span></span><br><span class="line">  ... <span class="comment">// pInv 사용, 사용 중에 return 되거나 에러 발생시 객체의 해제를 보장하지 못한다.</span></span><br><span class="line">  <span class="keyword">delete</span> pInv;  <span class="comment">// 객체 해제</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>자료구조 : 배열, 맵</li>
-<li>시간 복잡도 예상 : O(n)</li>
-</ul>
+<li>
+<p>자원 누출을 막기 위해, 생성자 안에서 자원을 획득하고 소멸자에서 그것을 해제하는 <code>RAII</code> 객체를 사용합니다.</p>
 <ol>
-<li>배열을 사용하여 출력될 메세지를 기록해 둡니다.</li>
-<li>유저 아이디를 키로 닉네임을 값으로 저장하는 맵을 사용하여 관리합니다.</li>
-<li>배열을 순회하며 메세지를 생성할 때 맵에 저장된 아이디별 최종 닉네임을 이용합니다.</li>
+<li>자원을 획득한 후에 자원 관리 객체에게 넘깁니다.<br>
+<code>RAII</code> : Resource Acquisition is Initialization, 자원 획득은 즉 초기화입니다.</li>
+<li>자원 관리 객체는 자신의 소멸자를 사용해서 자원이 확실히 해제되도록 합니다.</li>
 </ol>
-<ul>
-<li><strong>주요 부분</strong> : 유저 아이디 맵으로 관리</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name_map[id] = <span class="built_in">string</span>(name);</span><br></pre></td></tr></table></figure>
-<h3><span id="2-실패율">2. 실패율</span></h3>
-<ul>
-<li><a href="https://programmers.co.kr/learn/courses/30/lessons/42889" target="_blank" rel="noopener">문제 링크</a></li>
-<li><a href="https://github.com/dennischa/KAKAO_BLIND_RECRUITMENT_2019_SOLTUTION/blob/master/Failure_Ratio.cpp" target="_blank" rel="noopener">솔루션</a></li>
-</ul>
-<h4><span id="문제-풀이">문제 풀이</span></h4>
-<ul>
-<li>자료구조 : 배열, 맵</li>
-<li>시간 복잡도 예상 : O(n<sup>2</sup>)</li>
-</ul>
+</li>
+<li>
+<p>일반적으로 널리 쓰이는 <code>RAII</code> 클래스</p>
 <ol>
-<li>stages 백터 정보를 바탕으로 스테이지 별 실패율을 계산하다.</li>
-<li>조건에 맞게 정렬한다.</li>
+<li><code>std::auto_ptr</code><br>
+가리키고 있는 대상에 대해 소멸자가 자동으로 <code>delete</code>를 불러주도록 설계되어있습니다.<br>
+같은 객체를 가르키 <code>auto_ptr</code>이 둘 이상 존재하면 안 되기에 복사하면 원복 객체는 <code>null</code>로 만듭니다.</li>
 </ol>
-<ul>
-<li><strong>주요 부분</strong> : 정렬 비교 함수</li>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">auto_ptr</span>&lt;Investment&gt; pInv1(createInvestment);</span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">auto_ptr</span>&lt;Investment&gt; pInv2(pInv1) <span class="comment">//pInv2가 현재 그 객체를 가르키고, pInv1은 null입니다.</span></span><br><span class="line">pInv1 = pInv2; <span class="comment">// pInv1이 현재 그 객체를 가르키고, pInv2은 null 입니다.</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><code>std::tr1::shared_ptr</code><br>
+<strong>RCSP</strong>(reference-counting smart pointer) : 참조 카운팅 방식 스마트 포인터<br>
+자원을 가리키는 외부 객체의 개수를 유지하고 있다가 그 개수가 0이 되면 해당 자원을 자동으로 삭제하는 스마트 포인터입니다.<br>
+복사 생성자, 대입 연산자에 <u>정상적으로 동작</u>합니다.</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="built_in">std</span>::tr1::<span class="built_in">shared_ptr</span>&lt;Investment&gt; pInv1(createInvestment()); <span class="comment">//pInv1은 반환된 객체를 가르킵니다.</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">std</span>::tr1::<span class="built_in">shared_ptr</span>&lt;Investment&gt; pInv2(pInv1); <span class="comment">// pInv1, pInv2 모두 그 객체를 가르킵니다.</span></span><br><span class="line"></span><br><span class="line">  pInv1 = pInv2; <span class="comment">// 마찬가지입니다.</span></span><br><span class="line">&#125; <span class="comment">//pInv1, pInv2 가 소멸되어 가르키는 개수가 0이 되어 자원을 자동으로 삭제합니다.</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> Stage&amp; comp)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">float</span> f1 = <span class="keyword">this</span>-&gt;get_failure_ratio();</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">float</span> f2 = comp.get_failure_ratio();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (f1 == f2)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>-&gt;num &lt; comp.num;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> f1 &gt; f2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3><span id="3후보키">3.후보키</span></h3>
+<h2><span id="항목-14-자원-관리-클래스의-복사-동작에-대해-진지하게-고찰하자">항목 14. 자원 관리 클래스의 복사 동작에 대해 진지하게 고찰하자.</span></h2>
+<hr>
 <ul>
-<li><a href="https://programmers.co.kr/learn/courses/30/lessons/42890" target="_blank" rel="noopener">문제 링크</a></li>
-<li><a href="https://github.com/dennischa/KAKAO_BLIND_RECRUITMENT_2019_SOLTUTION/blob/master/Candidate_Key.cpp" target="_blank" rel="noopener">솔루션</a></li>
-</ul>
-<h4><span id="문제-풀이">문제 풀이</span></h4>
-<ul>
-<li>자료구조 : 비트셋, 맵</li>
-<li>시간 복잡도 예상 : O(2<sup>n</sup>)</li>
-</ul>
+<li><code>RAII</code> 객체의 복사는 관리하는 자원의 복사 문제를 안고 간다.<br>
+<sub>ex)</sub> <code>Mutex</code>객체를 조작하는 경우 복사를 허용하면 안됩니다.</li>
+<li>복사 동작 구현 방법
 <ol>
-<li>bitset을 통해 모든 키 조합을 표현합니다.</li>
-<li><code>비트 연산 &amp;</code>을 통해 조합의 최소성을 확보합니다.</li>
-<li>맵을 통해 투플의 종류 수를 구해 유일성을 확보합니다.</li>
+<li>복사를 금지합니다. (복사 연산을 <code>private</code> 멤버로 만듭니다.)</li>
+<li>관리하고 있는 자원에 대해 참조 카운팅을 수행합니다. (<code>std::tr1::shared_ptr</code>을 사용합니다.)</li>
+<li>관리하고 있는 자원을 진짜로 복사합니다. (‘깊은 복사(deep copy)’)</li>
+<li>관리하고 있는 자원의 소유권을 옮깁니다. (<code>auto_ptr</code>의 복사 동작)</li>
 </ol>
-<ul>
-<li><strong>주요 부분</strong>  : 최소성 확보</li>
+</li>
 </ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bitset</span>&lt;8&gt; <span class="built_in">set</span> = i;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; keys.size(); i++)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> ((keys[i] &amp; <span class="built_in">set</span>) == keys[i]) <span class="comment">// 앞서 구한 키조합의 부분 집합인지 확인한다.</span></span><br><span class="line">	&#123;</span><br><span class="line">		is_minimal = <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="항목-15-자원-관리-클래스에서-관리되는-자원은-외부에서-접근할-수-있도록-하자">항목 15. 자원 관리 클래스에서 관리되는 자원은 외부에서 접근할 수 있도록 하자.</span></h2>
+<hr>
+<ul>
+<li>실제 자원을 직접 접근해야 하는 기존 API들도 많기 때문입니다.</li>
+<li>변환 방법
+<ol>
+<li>명시적 변환(explicit conversion)<br>
+멤버 함수를 사용해 객체에 들어 있는 실제 자원에 접근합니다.<br>
+<code>std::tr1::shared_ptr</code> 과 <code>std::auto_ptr</code>은 get이라는 맴버 함수를 제공합니다. <sub>ex)</sub><code>pInv.get()</code></li>
+<li>암시적 변환(implicit conversion)<br>
+암시적 변환 함수를 제공하여 자원 접근을 매끄럽게 할 수 잇도록 합니다.</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Font</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="keyword">operator</span> <span class="title">FontHandle</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">  </span>&#123;<span class="keyword">return</span> f;&#125;</span><br><span class="line">  ...</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  Fonthandle f; <span class="comment">// 실제 폰트 자원</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>안전성만 따지면 명시적 변환이 대체적으로 더 낫지만, 고객 편의성을 놓고 보면 암시적 변환이 괜찮습니다.</p>
+</blockquote>
+<h2><span id="항목-16-new-및-delete를-사용할-때는-형태를-반드시-맞추자">항목 16. new 및 delete를 사용할 때는 형태를 반드시 맞추자.</span></h2>
+<hr>
+<ul>
+<li>
+<p><code>new</code> 표현식에 <code>[]</code>를 썻으면, 대응되는 <code>delete</code> 표현식에도 <code>[]</code>를 써야 합니다. 마찬가지로 <code>new</code> 표현식에 <code>[]</code>를 안 썻으면, 대응되는 <code>delete</code>표현식에서도 <code>[]</code>를 쓰지 말아야 합니다.</p>
+</li>
+<li>
+<p>메모리 배치구조</p>
+<ol>
+<li>단일 객체</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Object</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<ol start="2">
+<li>객체 배열</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">n</th>
+<th style="text-align:center">Object</th>
+<th style="text-align:center">Object</th>
+<th style="text-align:center">Object</th>
+<th style="text-align:center">Object</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<p>n은 배열의 크기</p>
+</li>
+<li>
+<p><code>delete</code>시 <code>[]</code>이 존재하면 n을 읽어 갯수만큼 소멸자를 호출하고 메모리를 해제한다.</p>
+</li>
+</ul>
+<blockquote>
+<p>배열 타입을 typedef 타입으로 만드는 경우 오류 발생의 소지가 있다.</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">std</span>::<span class="built_in">string</span> AddressLines[<span class="number">4</span>]; <span class="comment">//배열 타입 선언</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">string</span> *pal = <span class="keyword">new</span> AddressLines; <span class="comment">// 배열 선언</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> pal; <span class="comment">//잘못된 delete</span></span><br><span class="line"><span class="keyword">delete</span> [] pal; <span class="comment">//옳은 delete</span></span><br></pre></td></tr></table></figure>
+<h2><span id="항목-17-new로-생성한-객체를-스마트-포인터에-저장하는-코드는-별도의-한-문장으로-만들자">항목 17. new로 생성한 객체를 스마트 포인터에 저장하는 코드는 별도의 한 문장으로 만들자.</span></h2>
+<hr>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">priority</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">processWidget</span><span class="params">(<span class="built_in">std</span>::tr1::<span class="built_in">shared_ptr</span>&lt;Widget&gt; pw, <span class="keyword">int</span> priority)</span></span>;</span><br><span class="line"></span><br><span class="line">processWidget(<span class="built_in">std</span>::tr1::<span class="built_in">shared_ptr</span>&lt;Widget&gt;(<span class="keyword">new</span> Widget), priority()); <span class="comment">//문제 발생 가능</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>매개 변수를 넘겨주는 연산 <code>new Widget</code>, <code>priority()</code>, <code>tr1::shared_ptr 생성자</code> 3가지가 실행됩니다.</li>
+<li><code>tr1::shared_ptr 생성자</code>는 <code>new Widget</code>을 매개변수를 사용하기 때문에 순서가 뒤로 보장 되지만 다른 연산들과의 순서는 보장되지 못합니다.</li>
+<li><code>new Widget</code> :arrow_right: <code>priority()</code> :arrow_right:  <code>tr1::shared_ptr 생성자</code> 순서로 실행 되는 경우  <code>priority()</code> 호출 부분에서 예외가 발생하면 자원이 누출됩니다.</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::tr1::<span class="built_in">shared_ptr</span>&lt;Widget&gt; pw(<span class="keyword">new</span> Widget); <span class="comment">//독립적인 문장으로 실행</span></span><br><span class="line"></span><br><span class="line">processWidget(pw, priority());</span><br></pre></td></tr></table></figure>
+<ul>
+<li>한 문장으로 만들지 않으면 예외가 발생될 때 디버깅하기 힘든 자원 누출이 초래될 수 있습니다.</li>
+</ul>
 
                 
 
@@ -275,13 +343,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2019/11/01/algorithm-sorting/" data-toggle="tooltip" data-placement="top" title="알고리즘 - 정렬 정리">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2019/10/31/effective-cpp-ch2-part2/" data-toggle="tooltip" data-placement="top" title="Chapter 2. 생성자, 소멸자 및 대입 연산자 part2 항목 10 - 12">Next Post &rarr;</a>
+                            <a href="/2019/11/01/algorithm-sorting/" data-toggle="tooltip" data-placement="top" title="알고리즘 - 정렬 정리">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -345,8 +409,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "cagyeongjun-gisul-beulrogeu";
-    var disqus_identifier = "https://dennischa.github.io/2019/11/01/algorithm-kakao2019-part1/";
-    var disqus_url = "https://dennischa.github.io/2019/11/01/algorithm-kakao2019-part1/";
+    var disqus_identifier = "https://dennischa.github.io/2019/11/06/effective-cpp-ch3/";
+    var disqus_url = "https://dennischa.github.io/2019/11/06/effective-cpp-ch3/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
