@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Chapter 2. 생성자, 소멸자 및 대입 연산자 part2 항목 10 - 12 - Dennis TechBlog | 차경준 기술 블로그
+          Chapter 4. 설계 및 선언 - Dennis TechBlog | 차경준 기술 블로그
         
     </title>
 
-    <link rel="canonical" href="https://dennischa.github.io/2019/10/31/effective-cpp-ch2-part2/">
+    <link rel="canonical" href="https://dennischa.github.io/2019/11/07/effective-cpp-chp4-part1/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('Demo.png')
+            background-image: url('/img/header_img/Iron-Man-3.jpg')
             /*post*/
         
     }
@@ -89,11 +89,11 @@
                               <a class="tag" href="/tags/#C++" title="C++">C++</a>
                             
                         </div>
-                        <h1>Chapter 2. 생성자, 소멸자 및 대입 연산자 part2 항목 10 - 12</h1>
+                        <h1>Chapter 4. 설계 및 선언</h1>
                         <h2 class="subheading">Effecive C++ 정리</h2>
                         <span class="meta">
                             Posted by Kyung Jun Cha on
-                            2019-10-31
+                            2019-11-07
                         </span>
                     </div>
                 
@@ -210,37 +210,80 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1><span id="chapter-2-생성자-소멸자-및-대입-연사자">Chapter 2. 생성자, 소멸자 및 대입 연사자</span></h1>
+                <h1><span id="chapter-4-설계-및-선언">Chapter 4. 설계 및 선언</span></h1>
 <hr>
-<h2><span id="항목-10-대입-연산자는-this의-참조자를-반환하게-하자">항목 10. 대입 연산자는 <code>*this</code>의 참조자를 반환하게 하자</span></h2>
-<hr>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x, y, z;</span><br><span class="line">x = y = z = <span class="number">15</span>;</span><br><span class="line">x = (y = ( z = <span class="number">15</span>));</span><br></pre></td></tr></table></figure>
-<p>위의 예에서 보이듯이 대입 연산은 우측 연관 연산이므로 <code>*this</code>를 반환함으로서 연산이 사슬처럼 엮일 수 있다.</p>
-<h2><span id="항목-11-operator에서는-자기대입에-대한-처리가-빠지지-않도록-하자">항목 11. <code>operator=</code>에서는 자기대입에 대한 처리가 빠지지 않도록 하자.</span></h2>
-<p><strong>Ex) 자기 참조 가능성이 있는 위험한 코드</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Widget</span> &#123;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  Bitmap* pb;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Widget&amp; Widget::<span class="keyword">operator</span>=(<span class="keyword">const</span> Widget&amp; rhs)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">delete</span> pb; <span class="comment">//rhs와 this가 같은 객체인 경우 문제 발생</span></span><br><span class="line">  pb = <span class="keyword">new</span> Bitmap(*rhs.pb);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>해결책</strong></p>
+<h2><span id="항목-18-인터페이스-설계는-제대로-쓰기엔-쉽게-엉터리로-쓰기엔-어렵게-하자">항목 18. 인터페이스 설계는 제대로 쓰기엔 쉽게, 엉터리로 쓰기엔 어렵게 하자.</span></h2>
+<ul>
+<li>
+<p>인터페이스의 올바른 사용을 이끄는 방법으로는 인터페이스 사이의 <strong>일관성</strong> 잡아주기, 기본제공 타입과의 동작 <strong>호환성 유지</strong>하기가 있습니다.</p>
+</li>
+<li>
+<p>사용자의 실수를 방지하는 방법</p>
 <ol>
-<li>일치성 검사</li>
+<li>새로운 타입 만들기</li>
 </ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Widget&amp; Widget::<span class="keyword">operator</span>=(<span class="keyword">const</span> Widget&amp; rhs)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">this</span> == &amp;rhs) <span class="keyword">return</span> *<span class="keyword">this</span>; <span class="comment">// 코드 실행전 일치성 검사</span></span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Date</span> &#123;</span></span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    Date(<span class="keyword">int</span> month, <span class="keyword">int</span> day, <span class="keyword">int</span> year); <span class="comment">// 매개 변수 전달 순서가 잘못될 여지가 열려 있다.</span></span><br><span class="line">  ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Date</span> &#123;</span></span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    Date(<span class="keyword">const</span> Month&amp; m, <span class="keyword">const</span> Day&amp; d, <span class="keyword">const</span> Year&amp; y); <span class="comment">//타입을 통해 올바른 전달 순서를 보장한다.</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <ol start="2">
-<li>실행 순서 조정</li>
+<li>객체의 값에 대해 제약 걸기</li>
 </ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Widget&amp; Widget::<span class="keyword">operator</span>=(<span class="keyword">const</span> Widget&amp; rhs)</span><br><span class="line">&#123;</span><br><span class="line">  Bitmap *pOrig = pb; <span class="comment">//원래의 pb를 기억해 둡니다.</span></span><br><span class="line">  pb = <span class="keyword">new</span> Bitmap(*rhs.pb);</span><br><span class="line">  <span class="keyword">delete</span> pOrig;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>복사 후 맞바꾸기(copy and swap)</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Widget&amp; Widget::<span class="keyword">operator</span>=(<span class="keyword">const</span> Widget&amp; rhs)</span><br><span class="line">&#123;</span><br><span class="line">  Widget temp(rhs);</span><br><span class="line">  swap(temp); <span class="comment">// *this의 데이터를 그 사본의 것과 맞바꿉니다.</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Month</span> &#123;</span> <span class="comment">//월의 경우 1~12 사이값만이 유효합니다.</span></span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> Month <span class="title">Jan</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> Month(<span class="number">1</span>);&#125;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> Month <span class="title">Feb</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> Month(<span class="number">2</span>);&#125;</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">Month</span><span class="params">(<span class="keyword">int</span> m)</span></span>; <span class="comment">// 객체가 외부에서 새로 생성되지 않게 private으로 선언합니다.</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">Date <span class="title">d</span><span class="params">(Month::Jan(), Day(<span class="number">30</span>), Year(<span class="number">1995</span>))</span></span>;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>두 개 이상의 객체에 대해 동작하는 함수가 있다면, 이함수에 넘겨지는 객체들이 사실 같은 객체인 경우에 정확하게 동작하는지 확인해 보시오</p>
+<p><code>enum</code>을 넣는 방법이 있지만 타입 안전성은 그리 믿음직하지 못합니다. 때로는 <code>int</code>처럼 쓰일 수도 있습니다.</p>
 </blockquote>
-<h2><span id="항목-12-객체의-모든-부분을-빠짐없이-복사하자">항목 12: 객체의 모든 부분을 빠짐없이 복사하자</span></h2>
-<ol>
-<li>해당 클래스의 데이터 멤버를 모두 복사해야 합니다.</li>
-<li>이 클래스가 상속한 <u>기본 클래스의 복사 함수도 꼬박꼬박 호출</u>해 주도록 합니다.</li>
+<ol start="3">
+<li>타입에 대한 연산을 제한하기 (<sub>ex)</sub><code>const</code> 사용)</li>
+<li>자원 관리 작업을 사용자 책임으로 놓지 않기 (<sub>ex)</sub>스마트 포인터 사용)</li>
 </ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Derived::Derived(<span class="keyword">const</span> Derived&amp; rhs) : Base(rhs)</span><br><span class="line">&#123;</span><br><span class="line">  ... <span class="comment">// 클래스 데이터 멤버를 모두 복사 합니다.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Derived&amp; Derived::<span class="keyword">operator</span>=(<span class="keyword">const</span> Derived&amp; rhs)</span><br><span class="line">&#123;</span><br><span class="line">  Base::<span class="keyword">operator</span>=(rhs); <span class="comment">// 기본 클래스 부분을 대입합니다.</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2><span id="항목-19-클래스-설계는-타입-설계와-똑같이-취급하자">항목 19. 클래스 설계는 타입 설계와 똑같이 취급하자</span></h2>
+<hr>
+<ul>
+<li>설계를 위한 고려사항</li>
+</ul>
+<ol>
+<li>새로 정의한 타입의 객체 생성 및 소멸은 어떻게 이루어져야 하는가?<br>
+클래스 생성자 및 소멸자 설계</li>
+<li>객체 초기화는 객체 대입과 어떻게 달라야 하는가?<br>
+생성자와 대입 연산자의 동작 및 둘 사이의 차이점</li>
+<li>새로운 타입으로 만든 객체가 값에 의해 전달되는 경우에 어떤 의미를 줄 것인가?<br>
+복사 생성자</li>
+<li>새로운 타입이 가질 수 있는 적법한 값에 대한 제약은 무엇으로 잡을 것인가?<br>
+클래스의 불변속성(invariant) : 클래스의 데이터 멤버의 몇 가지 조합 값만은 반드시 유효해야 한다.</li>
+<li>기존의 클래스 상속 계통망(inheritance graph)에 맞출 것인가?</li>
+<li>어떤 종류의 타입 변환을 허용할 것인가?<br>
+암시적(implicitly), 명시적(explicit) 변환 구현</li>
+<li>어떤 연산자와 함수를 두어야 의미가 있을까?</li>
+<li>표준 함수들 중 어떤 것을 허용하지 말 것인가?<br>
+<code>private</code> 함수</li>
+<li>새로운 타입의 멤버에 대한 접근권한을 어느 쪽에 줄 것인가?</li>
+<li>선언되지 않은 인터페이스로 무엇을 둘 것인가?<br>
+타입이 제공할 보장의 종류</li>
+<li>새로 만드는 타입이 얼마나 일반적인가?<br>
+템플릿에 대한 고찰</li>
+<li>정말로 꼭 필요한 타입인가?</li>
+</ol>
+<h2><span id="항목-20-값에-의한-전달보다는-상수객체-참조자에-의한-전달-방식을-택하는-편이-대개-낫다">항목 20. '값에 의한 전달’보다는 ‘상수객체 참조자에 의한 전달’ 방식을 택하는 편이 대개 낫다.</span></h2>
+<hr>
+<ol>
+<li>대체적으로 효율적일 뿐만 아니라 복사손실 문제까지 막아 줍니다.<br>
+<strong>복사손실 문제</strong>(slicing problem) : 파생 클래스 객체가 기본 클래스 객체로서 전달되는 경우 기본 클래스의 복사 생성자가 호출되고 파생 클래스 객체로 동작하게 해 주는 특징들이 ‘싹둑 잘려’ 떨어지고 맙니다.</li>
+<li>값에 의한 전달이 괜찮은 유일한 타입은 <strong>기본제공 타입, STL 반복자, 함수 객체타입</strong> 뿐입니다.</li>
+</ol>
+<h2><span id="항목-21-함수에서-객체를-반환해야-할-경우에-참조자를-반환하려고-들지-말자">항목 21. 함수에서 객체를 반환해야 할 경우에 참조자를 반환하려고 들지 말자.</span></h2>
+<hr>
+<ul>
+<li>지역 스택 객체에 대한 포인터나 참조자를 반환하는 일, 혹은 힙에 할당된 객체에 대한 참조자를 반환하는 일, 또는 지역 정적 객체에 대한 포인터나 참조자를 반환하는 일은 그런 객체가 두 개 이상 필요해질 가능성이 있다는 절대로 하지 마세요.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Rational w, x, y, z;</span><br><span class="line">...</span><br><span class="line">w = x * y * z;  <span class="comment">// operator*(operator*(x,y), z)</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>지역 스택 객체에 대한 포인터나 참조자<br>
+함수가 끝날때 객체가 소멸되기에 잘못된 메모리를 가르키고 있는 참조자/포인터입니다.</li>
+<li>힙에 할당된 객체에 대한 참조자를 반환하는 일<br>
+위와 같이 연산이 한문장에서 두번 이뤄질 때 메모리 해재에 대한 보장이 이뤄지지 못합니다.</li>
+<li>지역 정적 객체에 대한 포인터나 참조자를 반화하는 일<br>
+<code>static</code>을 사용하여 다중 쓰레드 환경에서 보장되지 못할 수 있고 단적인 예로 <code>if((a*b) == (c*d))</code>의 값이 항상 참이 나오는 오류를 범할 수 있습니다.</li>
+</ol>
 
                 
 
@@ -248,13 +291,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2019/11/01/algorithm-kakao2019-part1/" data-toggle="tooltip" data-placement="top" title="2019 KAKAO BLIND RECRUTMENT 코딩 테스트 풀이 part1">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2019/10/24/effective-cpp-ch2-part1/" data-toggle="tooltip" data-placement="top" title="Chapter 2. 생성자, 소멸자 및 대입 연산자 part1 항목 5 - 9">Next Post &rarr;</a>
+                            <a href="/2019/11/06/effective-cpp-ch3/" data-toggle="tooltip" data-placement="top" title="Chapter 3. 자원 관리">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -318,8 +357,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "cagyeongjun-gisul-beulrogeu";
-    var disqus_identifier = "https://dennischa.github.io/2019/10/31/effective-cpp-ch2-part2/";
-    var disqus_url = "https://dennischa.github.io/2019/10/31/effective-cpp-ch2-part2/";
+    var disqus_identifier = "https://dennischa.github.io/2019/11/07/effective-cpp-chp4-part1/";
+    var disqus_url = "https://dennischa.github.io/2019/11/07/effective-cpp-chp4-part1/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

@@ -140,14 +140,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -301,6 +301,9 @@
 <li>두 개의 배열을 비교하여 정렬되고 합병된 배열을 만든다.</li>
 </ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; v, <span class="keyword">int</span> s, <span class="keyword">int</span> e, <span class="keyword">int</span> m)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ret;</span><br><span class="line">  <span class="keyword">int</span> i = s, j = m + <span class="number">1</span>, copy =<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span>(i &lt;= m &amp;&amp; j &lt;= e)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span>(v[i] &lt; v[j])</span><br><span class="line">      ret.push_back(v[i++]);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      ret.push_back(v[j++]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span>(i &lt;= m)</span><br><span class="line">    ret.push_back(v[i++]);</span><br><span class="line">  <span class="keyword">while</span>(j &lt;= e)</span><br><span class="line">    ret.push_back(v[j++]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> k=s; k&lt;=e; k++)</span><br><span class="line">  &#123;</span><br><span class="line">    v[k] = ret[copy++];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; v, <span class="keyword">int</span> s, <span class="keyword">int</span> e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(s&lt;e)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">int</span> m = (s+e)/<span class="number">2</span>;</span><br><span class="line">    <span class="comment">//divide</span></span><br><span class="line">    mergeSort(v, s, m);</span><br><span class="line">    mergeSort(v. m+<span class="number">1</span>, e);</span><br><span class="line">    <span class="comment">//conquer</span></span><br><span class="line">    merge(v, s, e, m);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><u>다중 스레드를 사용할 때</u>에는 병합 정렬이 <strong>유리</strong>합니다. 배열을 나눈 다음 병합할 때 이것은 별도의 스레드에서 수행할 수 있습니다. 하지만 빠른 정렬은 피벗을 사용해 정렬을 수행하므로 스레드간에 문제를 효율적으로 구분하는 것이 어렵습니다.</p>
+</blockquote>
 <h2><span id="5-빠른-정렬quick-sort">5. 빠른 정렬(Quick Sort)</span></h2>
 <ol>
 <li>분할 정복(Divide and conquer)</li>
