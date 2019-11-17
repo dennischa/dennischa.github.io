@@ -7,8 +7,16 @@
     </url>
 
     <url>
-        <loc>https://dennischa.github.io/2019/11/07/effective-cpp-chp4-part1/</loc>
-        <lastmod>2019-11-07T14:24:59.014Z</lastmod>
+        <loc>https://dennischa.github.io/2019/11/08/effective-cpp-ch4-part2/</loc>
+        <lastmod>2019-11-17T15:28:47.160Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dennischa.github.io/2019/11/07/effective-cpp-ch4-part1/</loc>
+        <lastmod>2019-11-17T15:28:36.648Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

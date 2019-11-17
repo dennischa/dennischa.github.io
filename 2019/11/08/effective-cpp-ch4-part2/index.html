@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Chapter 2. 생성자, 소멸자 및 대입 연산자 part2 항목 10 - 12 - Dennis TechBlog | 차경준 기술 블로그
+          Chapter 4. 설계 및 선언 part2 항목 22 - 25 - Dennis TechBlog | 차경준 기술 블로그
         
     </title>
 
-    <link rel="canonical" href="https://dennischa.github.io/2019/10/31/effective-cpp-ch2-part2/">
+    <link rel="canonical" href="https://dennischa.github.io/2019/11/08/effective-cpp-ch4-part2/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('Demo.png')
+            background-image: url('/img/header_img/Iron-Man-3.jpg')
             /*post*/
         
     }
@@ -89,11 +89,11 @@
                               <a class="tag" href="/tags/#C++" title="C++">C++</a>
                             
                         </div>
-                        <h1>Chapter 2. 생성자, 소멸자 및 대입 연산자 part2 항목 10 - 12</h1>
+                        <h1>Chapter 4. 설계 및 선언 part2 항목 22 - 25</h1>
                         <h2 class="subheading">Effecive C++ 정리</h2>
                         <span class="meta">
                             Posted by Kyung Jun Cha on
-                            2019-10-31
+                            2019-11-08
                         </span>
                     </div>
                 
@@ -210,37 +210,72 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1><span id="chapter-2-생성자-소멸자-및-대입-연사자">Chapter 2. 생성자, 소멸자 및 대입 연사자</span></h1>
+                <h1><span id="chapter-4-설계-및-선언-part2-항목-22-25">Chapter 4. 설계 및 선언 part2 항목 22 - 25</span></h1>
 <hr>
-<h2><span id="항목-10-대입-연산자는-this의-참조자를-반환하게-하자">항목 10. 대입 연산자는 <code>*this</code>의 참조자를 반환하게 하자</span></h2>
+<h2><span id="항목-22-데이터-멤버가-선언될-곳은-private-영역임을-명심하자">항목 22. 데이터 멤버가 선언될 곳은 <code>private</code> 영역임을 명심하자.</span></h2>
 <hr>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x, y, z;</span><br><span class="line">x = y = z = <span class="number">15</span>;</span><br><span class="line">x = (y = ( z = <span class="number">15</span>));</span><br></pre></td></tr></table></figure>
-<p>위의 예에서 보이듯이 대입 연산은 우측 연관 연산이므로 <code>*this</code>를 반환함으로서 연산이 사슬처럼 엮일 수 있다.</p>
-<h2><span id="항목-11-operator에서는-자기대입에-대한-처리가-빠지지-않도록-하자">항목 11. <code>operator=</code>에서는 자기대입에 대한 처리가 빠지지 않도록 하자.</span></h2>
-<p><strong>Ex) 자기 참조 가능성이 있는 위험한 코드</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Widget</span> &#123;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  Bitmap* pb;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Widget&amp; Widget::<span class="keyword">operator</span>=(<span class="keyword">const</span> Widget&amp; rhs)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">delete</span> pb; <span class="comment">//rhs와 this가 같은 객체인 경우 문제 발생</span></span><br><span class="line">  pb = <span class="keyword">new</span> Bitmap(*rhs.pb);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>해결책</strong></p>
+<ul>
+<li>데이터 멤버는 <code>private</code> 멤법로 선언합시다.</li>
+</ul>
 <ol>
-<li>일치성 검사</li>
+<li>일관성 있는 데이터 접근 통로 제공<br>
+<sub>ex)</sub> 공개 인터페이스에 있는 것들이 전부 함수뿐이라면, 괄호 사용에 고민이 필요없다. <code>length() size()</code></li>
+<li>세밀한 접근 제어 가능 (캡슐화(encapsulation))</li>
+<li>클래스의 불변속성 강화</li>
+<li>내부 구현의 융통성 강화</li>
 </ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Widget&amp; Widget::<span class="keyword">operator</span>=(<span class="keyword">const</span> Widget&amp; rhs)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">this</span> == &amp;rhs) <span class="keyword">return</span> *<span class="keyword">this</span>; <span class="comment">// 코드 실행전 일치성 검사</span></span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>실행 순서 조정</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Widget&amp; Widget::<span class="keyword">operator</span>=(<span class="keyword">const</span> Widget&amp; rhs)</span><br><span class="line">&#123;</span><br><span class="line">  Bitmap *pOrig = pb; <span class="comment">//원래의 pb를 기억해 둡니다.</span></span><br><span class="line">  pb = <span class="keyword">new</span> Bitmap(*rhs.pb);</span><br><span class="line">  <span class="keyword">delete</span> pOrig;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>복사 후 맞바꾸기(copy and swap)</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Widget&amp; Widget::<span class="keyword">operator</span>=(<span class="keyword">const</span> Widget&amp; rhs)</span><br><span class="line">&#123;</span><br><span class="line">  Widget temp(rhs);</span><br><span class="line">  swap(temp); <span class="comment">// *this의 데이터를 그 사본의 것과 맞바꿉니다.</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>두 개 이상의 객체에 대해 동작하는 함수가 있다면, 이함수에 넘겨지는 객체들이 사실 같은 객체인 경우에 정확하게 동작하는지 확인해 보시오</p>
+<p><code>pulbic</code>은 캡슐화되지 않았다라는 뜻이며 '바꿀 수 없다’라는 의미를 담고 있습니다. public 멤버를 수정할 시 동반하여 수정해야하는 코드가 많기 때문입니다.<br>
+<code>protected</code> 또한 파생클래스를 수정해야 하기 때문에 힘들어 집니다.</p>
 </blockquote>
-<h2><span id="항목-12-객체의-모든-부분을-빠짐없이-복사하자">항목 12: 객체의 모든 부분을 빠짐없이 복사하자</span></h2>
+<h2><span id="항목-23-멤버-함수보다는-비멤법-비프렌드-함수와-더-가까워지자">항목 23. 멤버 함수보다는 비멤법 비프렌드 함수와 더 가까워지자.</span></h2>
+<hr>
 <ol>
-<li>해당 클래스의 데이터 멤버를 모두 복사해야 합니다.</li>
-<li>이 클래스가 상속한 <u>기본 클래스의 복사 함수도 꼬박꼬박 호출</u>해 주도록 합니다.</li>
+<li>캡슐화 정도가 높아집니다.</li>
 </ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Derived::Derived(<span class="keyword">const</span> Derived&amp; rhs) : Base(rhs)</span><br><span class="line">&#123;</span><br><span class="line">  ... <span class="comment">// 클래스 데이터 멤버를 모두 복사 합니다.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Derived&amp; Derived::<span class="keyword">operator</span>=(<span class="keyword">const</span> Derived&amp; rhs)</span><br><span class="line">&#123;</span><br><span class="line">  Base::<span class="keyword">operator</span>=(rhs); <span class="comment">// 기본 클래스 부분을 대입합니다.</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>인터페이스의 공개되는 영역의 크기로 캡슐화 정도를 측정합니다. 공개 함수 갯수가 줄어 영역이 줄어듭니다.</li>
+<li><code>private</code> 데이터를 직접 호출하지 않고 호출 함수를 통해 호출하기 때문입니다.</li>
+</ul>
+<ol start="2">
+<li>패키징 유연성도 커집니다.<br>
+보통 이런 함수들은 같은 <code>namespace</code>를 활용하여 사용하는데 멤버 함수가 아닐경우 서로 다른 헤더 파일에 선언할 수 있다.</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//webbrowser.h //WebBrower 클래스 자체에 대한 헤더</span></span><br><span class="line">              <span class="comment">//관련된 핵심 기능 선언</span></span><br><span class="line"><span class="keyword">namespace</span> WebBrowserStuff &#123;</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">WebBrower</span> &#123;</span> ... &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> clearBrower &#123;WebBrower&amp; wb&#125;; <span class="comment">//비멤버 비프렌드 함수</span></span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//webbrowserbookmarks.h // 즐겨찾기 관련 기능</span></span><br><span class="line"><span class="keyword">namespace</span> WebBrowserStuff &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>기능적인 확장성도 늘어납니다.</li>
+</ol>
+<h2><span id="항목-24-타입-변환이-모든-매개변수에-대해-적용되어야-한다면-비멤버-함수를-선언하자">항목 24. 타입 변환이 모든 매개변수에 대해 적용되어야 한다면 비멤버 함수를 선언하자.</span></h2>
+<hr>
+<ul>
+<li>어떤 함수에 들어가는 모든 매개변수에 대해 타입 변환을 해 줄 필요가 있다면, 그 함수는 비멤버이어야 합니다.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rational</span> &#123;</span> <span class="comment">//실수를 나타내는 클래스</span></span><br><span class="line">  Rational(<span class="keyword">int</span> numerator = <span class="number">0</span>, <span class="keyword">int</span> denominator = <span class="number">1</span>); <span class="comment">// 생성자에 암시적 변환을 허용하기 위해서 explicit 키워드는 사용하면 안됩니다.</span></span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Rational <span class="keyword">operator</span>*(<span class="keyword">const</span> Rational&amp; lhs, <span class="keyword">const</span> Rational&amp; rhs);</span><br><span class="line"></span><br><span class="line"><span class="function">Rational <span class="title">oneFourth</span><span class="params">(<span class="number">1</span>, <span class="number">4</span>)</span></span>;</span><br><span class="line">Rational result;</span><br><span class="line"></span><br><span class="line">result = oneFourth * <span class="number">2</span>;</span><br><span class="line">result = <span class="number">2</span> * oneFourth;    <span class="comment">// 멤버함수로 operator*를 선언할 경우</span></span><br><span class="line">                          <span class="comment">// 2.operator*(Rational)을 찾지 못하고 비멤버 함수를 검색하기 때문에</span></span><br><span class="line">                          <span class="comment">// 비멤버 함수가 없으면 에러가 발생합니다.</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>클래스의 공개 함수만으로 구현할 수 있는 함수는 굳이 <code>friend</code>함수로 하지 않는다.</p>
+</blockquote>
+<h2><span id="항목-25-예외를-던지지-않는-swap에-대한-지원도-생각해-보자">항목 25. 예외를 던지지 않는 swap에 대한 지원도 생각해 보자.</span></h2>
+<hr>
+<ol>
+<li>표준에서 제공하는 <code>swap</code>이 납득할 만한 효율을 보이면 그냥 아무것도 하지 마십시오.</li>
+<li>효율이 기대한 만큼 충분치 않다면 다음과 같이 하십시오. (<sub>ex)</sub> <code>pimpl(pointer to implementation)</code>와 유사한 경우)</li>
+</ol>
+<ol>
+<li>효율적으로 맞바꾸는 함수를 <code>public</code> 멤버 함수로 두십시오</li>
+</ol>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Widget</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(Widget&amp; other)</span> <span class="comment">//효율적인 함수</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    swap(pImpl, other.pImpl);</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  WidgetImpl* pImpl; <span class="comment">//Widget의 실제 데이터를 가진 객체에 대한 포인터</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>같은 네임스페이스 비멤버 <code>swap</code>을 만들어 넣습니다. 그리고 1번에서 만든 멤버 함수를 호출합니다.</li>
+</ol>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> WidgetStuff &#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(Widget&amp; a, Widget&amp; b)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    a.swap(b); <span class="comment">//멤버 함수 호출</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>새로운 클래스 라면 <code>std::swap</code>의 특수화 버전을 준비해 둡니다.(클래스 템플릿일 경우 추가하지 않습니다.<code>std</code>에는 새로운 템플릿 추가를 금합니다.)</li>
+</ol>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="built_in">std</span> &#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(Widget&amp; a. Widget&amp; b)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    a.swap(b);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li><code>swap</code>을 호출할 때, <code>std::swap</code>을 볼수 있도록 <code>using</code> 선언을 반드시 포합시킵니다.</li>
+</ol>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doSomething</span><span class="params">(T&amp; obj1, T&amp; obj2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">using</span> <span class="built_in">std</span>::swap;</span><br><span class="line">  ...</span><br><span class="line">  swap(obj1, obj2); <span class="comment">// 1. T와 동일한 네임스페이스 안에 T 전용의 swap을 찾습니다.</span></span><br><span class="line">                    <span class="comment">// 2. std::swap의 T 특수화 버전을 찾습니다.</span></span><br><span class="line">                    <span class="comment">// 3. std::swap의 일반형 템플릿 함수를 호출합니다.</span></span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
                 
 
@@ -248,13 +283,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2019/11/01/algorithm-kakao2019-part1/" data-toggle="tooltip" data-placement="top" title="2019 KAKAO BLIND RECRUTMENT 코딩 테스트 풀이 part1">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2019/10/24/effective-cpp-ch2-part1/" data-toggle="tooltip" data-placement="top" title="Chapter 2. 생성자, 소멸자 및 대입 연산자 part1 항목 5 - 9">Next Post &rarr;</a>
+                            <a href="/2019/11/07/effective-cpp-ch4-part1/" data-toggle="tooltip" data-placement="top" title="Chapter 4. 설계 및 선언 part1 항목 18 - 21">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -318,8 +349,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "cagyeongjun-gisul-beulrogeu";
-    var disqus_identifier = "https://dennischa.github.io/2019/10/31/effective-cpp-ch2-part2/";
-    var disqus_url = "https://dennischa.github.io/2019/10/31/effective-cpp-ch2-part2/";
+    var disqus_identifier = "https://dennischa.github.io/2019/11/08/effective-cpp-ch4-part2/";
+    var disqus_url = "https://dennischa.github.io/2019/11/08/effective-cpp-ch4-part2/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
