@@ -3,7 +3,14 @@
 
     <url>
         <loc>https://dennischa.github.io/tags/C/</loc>
-        <lastmod>2019-11-17T15:28:47.160Z</lastmod>
+        <lastmod>2019-11-17T15:31:48.951Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://dennischa.github.io/tags/Effective-C/</loc>
+        <lastmod>2019-11-17T15:31:48.951Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

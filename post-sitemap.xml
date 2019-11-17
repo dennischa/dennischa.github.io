@@ -7,8 +7,24 @@
     </url>
 
     <url>
-        <loc>https://dennischa.github.io/2019/11/08/effective-cpp-ch4-part2/</loc>
-        <lastmod>2019-11-17T15:28:47.160Z</lastmod>
+        <loc>https://dennischa.github.io/2019/10/17/effective-c-ch1/</loc>
+        <lastmod>2019-11-17T15:31:48.951Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dennischa.github.io/2019/10/24/effective-cpp-ch2-part1/</loc>
+        <lastmod>2019-11-17T15:31:26.152Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dennischa.github.io/2019/10/31/effective-cpp-ch2-part2/</loc>
+        <lastmod>2019-11-17T15:31:21.650Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -16,7 +32,15 @@
 
     <url>
         <loc>https://dennischa.github.io/2019/11/07/effective-cpp-ch4-part1/</loc>
-        <lastmod>2019-11-17T15:28:36.648Z</lastmod>
+        <lastmod>2019-11-17T15:31:15.854Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dennischa.github.io/2019/11/08/effective-cpp-ch4-part2/</loc>
+        <lastmod>2019-11-17T15:31:13.768Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -24,7 +48,7 @@
 
     <url>
         <loc>https://dennischa.github.io/2019/11/06/effective-cpp-ch3/</loc>
-        <lastmod>2019-11-07T12:49:02.406Z</lastmod>
+        <lastmod>2019-11-17T15:31:12.374Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -41,30 +65,6 @@
     <url>
         <loc>https://dennischa.github.io/2019/11/01/algorithm-kakao2019-part1/</loc>
         <lastmod>2019-11-06T16:44:27.483Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://dennischa.github.io/2019/10/31/effective-cpp-ch2-part2/</loc>
-        <lastmod>2019-10-31T13:49:44.204Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://dennischa.github.io/2019/10/24/effective-cpp-ch2-part1/</loc>
-        <lastmod>2019-10-31T13:48:53.799Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://dennischa.github.io/2019/10/17/effective-c-ch1/</loc>
-        <lastmod>2019-10-31T12:38:26.722Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
