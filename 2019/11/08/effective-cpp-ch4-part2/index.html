@@ -18,7 +18,7 @@
         
     </title>
 
-    <link rel="canonical" href="https://dennischa.github.io/2019/11/08/effective-cpp-ch4-part2/">
+    <link rel="canonical" href="http://yoursite.com/2019/11/08/effective-cpp-ch4-part2/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -149,14 +149,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -273,7 +273,7 @@
 <ol start="3">
 <li>새로운 클래스 라면 <code>std::swap</code>의 특수화 버전을 준비해 둡니다.(클래스 템플릿일 경우 추가하지 않습니다.<code>std</code>에는 새로운 템플릿 추가를 금합니다.)</li>
 </ol>
-  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="built_in">std</span> &#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(Widget&amp; a. Widget&amp; b)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    a.swap(b);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="built_in">std</span> &#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(Widget&amp; a, Widget&amp; b)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    a.swap(b);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="4">
 <li><code>swap</code>을 호출할 때, <code>std::swap</code>을 볼수 있도록 <code>using</code> 선언을 반드시 포합시킵니다.</li>
 </ol>
@@ -284,6 +284,10 @@
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/11/18/note-rendering-pipeline/" data-toggle="tooltip" data-placement="top" title="랜더링 파이프 라인 정리">&larr; Previous Post</a>
+                        </li>
                     
                     
                         <li class="next">
@@ -353,8 +357,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "cagyeongjun-gisul-beulrogeu";
-    var disqus_identifier = "https://dennischa.github.io/2019/11/08/effective-cpp-ch4-part2/";
-    var disqus_url = "https://dennischa.github.io/2019/11/08/effective-cpp-ch4-part2/";
+    var disqus_identifier = "http://yoursite.com/2019/11/08/effective-cpp-ch4-part2/";
+    var disqus_url = "http://yoursite.com/2019/11/08/effective-cpp-ch4-part2/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -514,7 +518,7 @@
 <script>
     // only load tagcloud.js in tag.html
     if($('#tag_cloud').length !== 0){
-        async("https://dennischa.github.io/js/jquery.tagcloud.js",function(){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
             $.fn.tagcloud.defaults = {
                 //size: {start: 1, end: 1, unit: 'em'},
                 color: {start: '#bbbbee', end: '#0085a1'},
@@ -549,7 +553,7 @@
 	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
     <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
 <!-- Image to hack wechat -->
-<img src="https://dennischa.github.io/img/icon_wechat.png" width="0" height="0" />
+<img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>

@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          [Hexo] Theme BeanTech - Dennis TechBlog | 차경준 기술 블로그
+          랜더링 파이프 라인 정리 - Dennis TechBlog | 차경준 기술 블로그
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/2017/03/18/hexo-theme-beantech/">
+    <link rel="canonical" href="http://yoursite.com/2019/11/18/note-rendering-pipeline/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('Demo.png')
+            background-image: url('/img/header_img/Iron-Man-3.jpg')
             /*post*/
         
     }
@@ -86,12 +86,18 @@
                     <div class="post-heading">
                         <div class="tags">
                             
+                              <a class="tag" href="/tags/#Note" title="Note">Note</a>
+                            
+                              <a class="tag" href="/tags/#Game" title="Game">Game</a>
+                            
+                              <a class="tag" href="/tags/#3D" title="3D">3D</a>
+                            
                         </div>
-                        <h1>[Hexo] Theme BeanTech</h1>
-                        <h2 class="subheading">This is hexo theme Demo.</h2>
+                        <h1>랜더링 파이프 라인 정리</h1>
+                        <h2 class="subheading">개발 일기장</h2>
                         <span class="meta">
                             Posted by Kyung Jun Cha on
-                            2017-03-18
+                            2019-11-18
                         </span>
                     </div>
                 
@@ -208,60 +214,105 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <blockquote>
-<p>Ported Theme of <a href="https://github.com/Huxpro/huxpro.github.io" target="_blank" rel="noopener">Hux Blog</a>, Thank <a href="https://github.com/Huxpro" target="_blank" rel="noopener">Huxpro</a> for designing such a flawless theme.</p>
-<p>This BeanTech theme created by <a href="http://beantech.org" target="_blank" rel="noopener">YuHsuan</a> modified from the original Porter <a href="http://kaijun.rocks/hexo-theme-huxblog/" target="_blank" rel="noopener">Kaijun</a></p>
+                <h1><span id="랜더링-파이프-라인-정리">랜더링 파이프 라인 정리</span></h1>
+<hr>
+<h3><span id="정의">정의</span></h3>
+<hr>
+<p>3차원 장명의 기하학적 서술과 가상 카메라의 위치 및 방향이 주어졌을 때 현재 가상 카메라에 비친 3차원 장면의 모습에 근거해서 2차원 이미지를 생성하는 데 필요한 일련의 단계들 전체를 <strong>렌더링 파이프라인</strong>이라고 부른다.<br>
+<img src="./rendering_pipeline.PNG" alt="rendering_pipeline"></p>
+<h3><span id="입력-조립기-단계ia-input-assembler">입력 조립기 단계(IA, input assembler)</span></h3>
+<hr>
+<p>메모리에서 기하자료(정점, 색인)을 읽어 기하하적 기본도형(삼각형, 선분)을 조립합니다.</p>
+<h3><span id="정점-세이더-단계vertex-shader">정점 세이더 단계(vertex shader)</span></h3>
+<hr>
+<ol>
+<li>국소 공간과 세계 공간(local space, world space)<br>
+<img src="./vertex_shader.PNG" alt="vertex_shader">
+<ul>
+<li>국소 공간(local space) : 물체 자신의 국소 좌표계를 기준으로 구축합니다.</li>
+<li>세계 공간(world space) : 장면 전역의 좌표계를 기준으로 구축합니다.</li>
+<li>세계 변환(world transform) : 국소 좌표계에서 상대적인 좌표를 전역 장면 좌표계에 상대적인 좌표로 바꾸는 것을 말합니다. 해당 변환 행렬을 세계 행렬(world matrix)이라 부릅니다.</li>
+<li>ex) W = SRT (w:월드, S:비례, R:회전, T:이동)</li>
+</ul>
+</li>
+<li>시야 공간(view space)
+<ul>
+<li>가상카메라를 기준으로 좌표계를 부여합니다.<br>
+카메라는 원점에 놓여 양의 z축을 바라봅니다. x축은 카메라의 오른쪽 방향이고 y축은 카메라의 위쪽 방향입니다.</li>
+<li>시야 변환(view transform) : 세계 공간에서 시야 공간으로의 좌료 변경 변환을 말합니다. 해당 변환 행렬을 시야 행렬(view matrix)이라고 부릅니다.</li>
+</ul>
+</li>
+<li>투영과 동차 절단 공간
+<ul>
+<li>카메라 공간은 절두체(frustum; 각뿔대, 끝이 잘린 사각뿔)로 정의됩니다.</li>
+<li>3차원 정점 v를 투영선이 2차원 투영 평면과 만나는 점 v’로 변환하는 것을 말합니다.</li>
+<li>정규화된 장치 좌표(NDC, normalized device coordinates) : 사상한 후의 좌표</li>
+</ul>
+</li>
+</ol>
+<h3><span id="테셀레이션-단계덮개-셰이더-영역-셰이더-단계">테셀레이션 단계(덮개 셰이더, 영역 셰이더 단계)</span></h3>
+<hr>
+<ul>
+<li>주어진 메시의 삼각형들을 더 잘게 쪼개서(세분) 새로운 삼각형들을 만드는 과정을 말합니다.</li>
+<li>덮게 세이더, 영역 세이더 단계는 테셀레이션에 연결된 단계입니다.</li>
+<li>선택적입니다.(테셀레이션이 필요하지 않으면 이 단계들을 생략할 수 있습니다.)</li>
+<li>ex) 카메라에 가까운 메시의 면들을 좀 더 세밀하게 표현하고, 거리가 먼 면들은 테셀레이션을 적용하지 않는 방식을 적용할 수 있습니다.</li>
+</ul>
+<h3><span id="기하-셰이더-단계geometry-shader">기하 셰이더 단계(geometry shader)</span></h3>
+<hr>
+<ul>
+<li>선택적입니다.</li>
+<li>하나의 온전한 기본도형을 입력받아서 그것을 임의로 변형합니다.</li>
+<li><sub>ex)</sub>정점 세이더는 항상 정점 하나를 받아서 정점 하나를 출력하는데 기하 셰이더의 흔한 용도는 점이나 선분을 사각형으로 확장하는 것입니다.</li>
+</ul>
+<blockquote>
+<p>기하 셰이더의 출력을 스트림 출력 단계를 통해 메모리의 버퍼에 저장해 두고 나중에 활용하는 것이 가능합니다.</p>
 </blockquote>
-<h1><span id="live-demo"></span></h1>
+<h3><span id="절단">절단</span></h3>
 <hr>
-<p><img src="http://beantech.org/img/beantech-desktop.png" alt="BeanTech Desktop"></p>
-<h1><span id="usage">Usage</span></h1>
+<ul>
+<li>완전히 시야 절두체 바깥에 있는 기하구조는 폐기해야 하며, 절두체의 경계면과 교차하는 기하구조는 절두체 내부의 것만 남도록 잘라내야 합니다.</li>
+<li>NDC 좌표를 통해 판별할 수 있습니다.</li>
+</ul>
+<h3><span id="레스터화-단계rasterizer-stage">레스터화 단계(rasterizer stage)</span></h3>
 <hr>
-<p>I publish the whole project for your convenience, so you can just follow the instruction down below, then you can easily customiz your own blog!</p>
-<p>Let’s begin!!!</p>
-<h2><span id="init">Init</span></h2>
+<ul>
+<li>투영된 3차원 삼각형으로부터 픽셀 색상들을 계산하는 것입니다.</li>
+</ul>
+<ol>
+<li>뷰포트 변환
+<ol>
+<li>절단을 마치고 나면 하드웨어는 원근 나누기를 수행해서 동차 절단 공간 좌표를 정규하된 장치 좌표(NDC)로 변환할 수 있습니다.</li>
+<li>2차원 x,y 좌표성분들이 후면 버퍼의 한 직사각형 영역으로 변환된다. 그 영역이 바로 뷰포트입니다.</li>
+<li>z 성분은 깊이 버퍼링에 사용한다.</li>
+</ol>
+</li>
+<li>후면 선별
+<ul>
+<li>후면 삼각형을 골라서 폐기하는 공정을 후면 선별이라고 부릅니다.</li>
+<li>관례상, 감는 순서가 시계방향인 삼각형은 전면이고, 반시계방향인 삼각형은 후면입니다.</li>
+</ul>
+</li>
+<li>정점 특성의 보간
+<ul>
+<li>정점 자료에는 위치 정보뿐만 아니라 색상이나 법선 벡터, 텍스처 좌표 같은 추가적은 특성을 붙일 수 있다.</li>
+<li>정점의 그러한 특성들을 삼각형을 덮는 각 픽셀에 대해 보간해야 한다.</li>
+<li><sub>ex)</sub>3차원 선분이 2차원으로 투영될 때 보간된 특성을 그대로 화면 공간에 사상하면 간격이 고르지 않다. 다행히 Direct3D에서는 쓰이는 <strong>원형 보정 보간(perspective correct interpolation)</strong>이라는 보간 방법을 통해 문제를 해결합니다.</li>
+</ul>
+</li>
+</ol>
+<h3><span id="픽셀-셰이더-단계pixel-shader">픽셀 셰이더 단계(pixel shader)</span></h3>
 <hr>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/YenYuHsuan/hexo-theme-beantech.git ./hexo-beantech</span><br><span class="line"><span class="built_in">cd</span> hexo-beantech</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<h2><span id="modify">Modify</span></h2>
+<ul>
+<li>각각의 픽셀 단편(pixel fragment)에 대해 실행됩니다.</li>
+<li>보간된 정점 특성들을 입력받아서 하나의 색상을 출력합니다.</li>
+</ul>
+<h3><span id="출력-병합기-단계output-merger">출력 병합기 단계(output merger)</span></h3>
 <hr>
-<p>Modify <code>_config.yml</code> file with your own info.<br>
-Especially the section:</p>
-<h3><span id="deployment">Deployment</span></h3>
-<p>Replace to your own repo!</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="attr">https://github.com/&lt;yourAccount&gt;/&lt;repo&gt;</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">&lt;your-branch&gt;</span></span><br></pre></td></tr></table></figure>
-<h3><span id="sidebar-settings">Sidebar settings</span></h3>
-<p>Copy your avatar image to <code>&lt;root&gt;/img/</code> and modify the <code>_config.yml</code>:</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sidebar:</span> <span class="literal">true</span>    <span class="comment"># whether or not using Sidebar.</span></span><br><span class="line"><span class="attr">sidebar-about-description:</span> <span class="string">"&lt;your description&gt;"</span></span><br><span class="line"><span class="attr">sidebar-avatar:</span> <span class="string">img/&lt;your</span> <span class="string">avatar</span> <span class="string">path&gt;</span></span><br></pre></td></tr></table></figure>
-<p>and activate your personal widget you like</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">widgets:</span>         <span class="comment"># here are widget you can use, you can comment out</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">featured-tags</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">short-about</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">recent-posts</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">friends-blog</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">archive</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">category</span></span><br></pre></td></tr></table></figure>
-<p>if you want to add sidebar widget, please add at <code>layout/_widget</code>.</p>
-<h3><span id="signature-setup">Signature Setup</span></h3>
-<p>Copy your signature image to <code>&lt;root&gt;/img/signature</code> and modify the <code>_config.yml</code>:</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">signature:</span> <span class="literal">true</span>   <span class="comment"># show signature</span></span><br><span class="line"><span class="attr">signature-img:</span> <span class="string">img/signature/&lt;your-signature-ID&gt;</span></span><br></pre></td></tr></table></figure>
-<h3><span id="go-to-top-icon-setup">Go to top icon Setup</span></h3>
-<p>My icon is using iron man, you can change to your own icon at <code>css/image</code>.</p>
-<h3><span id="post-tag">Post tag</span></h3>
-<p>You can decide to show post tags or not.</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">home_posts_tag:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p><img src="home_posts_tag-true.png" alt="home_posts_tag-true"></p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">home_posts_tag:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-<p><img src="home_posts_tag-false.png" alt="home_posts_tag-false"></p>
-<h3><span id="markdown-render">Markdown render</span></h3>
-<p>My markdown render engine plugin is <a href="https://github.com/celsomiranda/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a>.</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Markdown-it config</span></span><br><span class="line"><span class="comment">## Docs: https://github.com/celsomiranda/hexo-renderer-markdown-it/wiki</span></span><br><span class="line"><span class="attr">markdown:</span></span><br><span class="line"><span class="attr">  render:</span></span><br><span class="line"><span class="attr">    html:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    xhtmlOut:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">    breaks:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    linkify:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    typographer:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    quotes:</span> <span class="string">'“”‘’'</span></span><br></pre></td></tr></table></figure>
-<p>and if you want to change the header anchor ‘ℬ’, you can go to <code>layout/post.ejs</code> to change it.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span>(<span class="string">"https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        anchors.options = &#123;</span><br><span class="line">          visible: <span class="string">'hover'</span>,</span><br><span class="line">          placement: <span class="string">'left'</span>,</span><br><span class="line">          icon: ℬ <span class="comment">// this is the header anchor "unicode" icon</span></span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
-<h2><span id="hexo-basics">Hexo Basics</span></h2>
-<hr>
-<p>Some hexo command:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo new post <span class="string">"&lt;post name&gt;"</span> <span class="comment"># you can change post to another layout if you want</span></span><br><span class="line">hexo clean &amp;&amp; hexo generate <span class="comment"># generate the static file</span></span><br><span class="line">hexo server <span class="comment"># run hexo in local environment</span></span><br><span class="line">hexo deploy <span class="comment"># hexo will push the static files automatically into the specific branch(gh-pages) of your repo!</span></span><br></pre></td></tr></table></figure>
-<h1><span id="have-fun-_">Have fun <sup>_</sup></span></h1>
-<hr>
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<!-- Place this tag where you want the button to render. -->
-<p>Please <a class="github-button" href="https://github.com/YenYuHsuan/hexo-theme-beantech" data-icon="octicon-star" aria-label="Star YenYuHsuan/hexo-theme-beantech on GitHub" target="_blank" rel="noopener">Star</a> this Project if you like it! <a class="github-button" href="https://github.com/YenYuHsuan" aria-label="Follow @YenYuHsuan on GitHub" target="_blank" rel="noopener">Follow</a> would also be appreciated!<br>
-Peace!</p>
+<ul>
+<li>일부 픽셀 단편들이 기각될 수 있고(이를테면 깊이 판정이나 스텐실 판정에 의해), 기각 되지 않은 픽셀 단편들은 후면 버퍼에 기록된다.</li>
+<li>혼합(blending)도 이 단계에서 일어납니다.</li>
+</ul>
 
                 
 
@@ -269,10 +320,10 @@ Peace!</p>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2019/10/17/effective-c-ch1/" data-toggle="tooltip" data-placement="top" title="Chapter 1. C++에 왔으면 C++의 법을 따릅니다. 항목 1 - 4">&larr; Previous Post</a>
-                        </li>
                     
+                        <li class="next">
+                            <a href="/2019/11/08/effective-cpp-ch4-part2/" data-toggle="tooltip" data-placement="top" title="Chapter 4. 설계 및 선언 part2 항목 22 - 25">Next Post &rarr;</a>
+                        </li>
                     
                 </ul>
 
@@ -308,6 +359,12 @@ Peace!</p>
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
+                          <a class="tag" href="/tags/#Note" title="Note">Note</a>
+                        
+                          <a class="tag" href="/tags/#Game" title="Game">Game</a>
+                        
+                          <a class="tag" href="/tags/#3D" title="3D">3D</a>
+                        
                     </div>
                 </section>
                 
@@ -333,8 +390,8 @@ Peace!</p>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "cagyeongjun-gisul-beulrogeu";
-    var disqus_identifier = "http://yoursite.com/2017/03/18/hexo-theme-beantech/";
-    var disqus_url = "http://yoursite.com/2017/03/18/hexo-theme-beantech/";
+    var disqus_identifier = "http://yoursite.com/2019/11/18/note-rendering-pipeline/";
+    var disqus_url = "http://yoursite.com/2019/11/18/note-rendering-pipeline/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

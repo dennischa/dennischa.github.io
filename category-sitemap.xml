@@ -1,42 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://dennischa.github.io</loc>
+        <loc>http://yoursite.com</loc>
         <changefreq>daily</changefreq>
         <priority>1</priority>
     </url>
 
     <url>
-        <loc>https://dennischa.github.io/categories/Algorithm/2019-KAKAO/</loc>
+        <loc>http://yoursite.com/categories/Algorithm/2019-KAKAO/</loc>
         <lastmod>2019-11-06T16:44:27.483Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://dennischa.github.io/categories/Algorithm/</loc>
+        <loc>http://yoursite.com/categories/Algorithm/</loc>
         <lastmod>2019-11-06T17:07:01.624Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://dennischa.github.io/categories/Algorithm/Note/</loc>
+        <loc>http://yoursite.com/categories/Algorithm/Note/</loc>
         <lastmod>2019-11-06T17:07:01.624Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://dennischa.github.io/categories/C/</loc>
-        <lastmod>2019-11-17T15:31:48.951Z</lastmod>
+        <loc>http://yoursite.com/categories/C/</loc>
+        <lastmod>2019-11-17T15:45:32.950Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://dennischa.github.io/categories/C/Effective-C/</loc>
-        <lastmod>2019-11-17T15:31:48.951Z</lastmod>
+        <loc>http://yoursite.com/categories/C/Effective-C/</loc>
+        <lastmod>2019-11-17T15:45:32.950Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/Game/</loc>
+        <lastmod>2019-11-18T12:52:32.440Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/Game/Note/</loc>
+        <lastmod>2019-11-18T12:52:32.440Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
